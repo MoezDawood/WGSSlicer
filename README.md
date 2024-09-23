@@ -1,5 +1,6 @@
 # Slicer
 Written by Moez Dawood (mdawood@bcm.edu)
+
 Access requires you to be on BCM WiFi or BCM VPN
 
 ## Purpose
