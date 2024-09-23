@@ -30,25 +30,25 @@ If Python 3 is not installed, you can download and install it from the oficial P
 
 ## Installation Instructions
 
-# Step 1: Clone the Repository
+### Step 1: Clone the Repository
 To begin, clone the WGSSlicer repository using the following command:
 ```
 git clone https://github.com/MoezDawood/WGSSlicer.git
 ```
 
-# Step 2: Navigate to the project directory
+### Step 2: Navigate to the project directory
 Once the repository is cloned, move into the project directory:
 ```
 cd WGSSlicer  
 ```
 
-# Step 3: Install required dependencies
+### Step 3: Install required dependencies
 Once inside the project directory, install the required dependencies using the requirements.txt file:
 ```
 pip install -r requirements.txt
 ```
 
-# Step 4: Run the application
+### Step 4: Run the application
 Now that the dependencies are installed, you can run the WGSSlicer script using Streamlit:
 ```
 streamlit run WGS_Slicer_v1.py
