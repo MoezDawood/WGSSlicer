@@ -221,7 +221,7 @@ def format_gene_list_for_display(gene_list):
 
 # Streamlit app
 def main():
-    st.title("SLICER v60 - Multi-Gene Search Enhancement")
+    st.title("SLICER")
     st.write("Written by Moez Dawood (mdawood@bcm.edu)")
     st.write("Access requires you to be on BCM WiFi or BCM VPN")
     st.write("The point of this application is to allow analysts to filter and download 'slices' of WGS data. Since the number of variants in a genome (typically greater than 5 million) far exceeds the number of allowable rows (typically 1 million rows) in conventional spreadsheet softwares (eg Excel), this interface allows the user to parse the variants found in a genome down to 50,000 variants or less. Further, to keep this interface quick and efficient, the files available for each genome in the dropdown menu have been filtered to only contain variants found at a population allele frequency of 0.01 or less in gnomAD v3.")
