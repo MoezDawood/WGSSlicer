@@ -45,11 +45,11 @@ cd WGSSlicer
 ### Step 3: Install required dependencies
 Once inside the project directory, install the required dependencies using the requirements.txt file:
 ```
-pip install -r requirements.txt
+pip3 install -r requirements.txt
 ```
 
 ### Step 4: Run the application
 Now that the dependencies are installed, you can run the WGSSlicer script using Streamlit:
 ```
-streamlit run WGS_Slicer_v1.py
+streamlit run WGS_Slicer_v2.py
 ```
