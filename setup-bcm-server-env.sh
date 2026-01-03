@@ -95,9 +95,9 @@ if [ "$CONDA_AVAILABLE" = true ]; then
     source "$(conda info --base)/etc/profile.d/conda.sh"
     conda activate wgs-slicer
     
-    # Install pandas via conda first (pre-built binary, avoids compilation issues)
-    echo "Installing pandas via conda (pre-built binary)..."
-    conda install pandas -y
+    # Install pandas and pyarrow via conda first (pre-built binaries, avoids compilation issues)
+    echo "Installing pandas and pyarrow via conda (pre-built binaries)..."
+    conda install pandas pyarrow -y
     
     # Install other packages via pip
     echo "Installing other dependencies via pip..."
