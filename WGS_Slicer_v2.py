@@ -270,18 +270,57 @@ def main():
 
     # Login page
     if not st.session_state.logged_in:
+        # Check if we're on Streamlit Cloud and show warning
+        import socket
+        try:
+            # Try to connect to BCM server to check if we're on the right network
+            test_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+            test_socket.settimeout(2)
+            result = test_socket.connect_ex((host, 22))
+            test_socket.close()
+            
+            if result != 0:
+                st.warning("⚠️ **Network Connection Issue Detected**")
+                st.info("""
+                **This app requires access to the BCM internal network.**
+                
+                If you're seeing this on Streamlit Cloud, the app cannot connect to the BCM server 
+                because Streamlit Cloud servers are not on the BCM network.
+                
+                **Solutions:**
+                1. **Deploy on a BCM server** (recommended) - See `SOLUTION_SSH_ISSUE.md` for instructions
+                2. **Use BCM VPN** - If accessing from outside BCM network, connect to BCM VPN first
+                3. **Contact your system administrator** for server access
+                
+                The app will still attempt to connect, but it may fail if you're not on the BCM network.
+                """)
+        except Exception:
+            pass  # If check fails, just continue normally
+        
         username = st.text_input("Username")
         password = st.text_input("Password", type="password")
 
         if st.button("Login"):
             if username and password:
-                files = list_csv_files_in_directory(host, username, password, maindirectory)
+                with st.spinner("Connecting to BCM server..."):
+                    files = list_csv_files_in_directory(host, username, password, maindirectory)
                 if files is not None:
                     st.session_state.logged_in = True
                     st.session_state.files = files
                     st.session_state.username = username
                     st.session_state.password = password
                     st.rerun()
+                else:
+                    st.error("""
+                    **Connection Failed**
+                    
+                    Unable to connect to the BCM server. This could be because:
+                    - You're not on the BCM network or VPN
+                    - The server is unreachable from this location
+                    - Network restrictions are blocking the connection
+                    
+                    Please see `SOLUTION_SSH_ISSUE.md` for deployment options.
+                    """)
             else:
                 st.error("Please fill in all fields")
     else:

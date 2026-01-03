@@ -1,0 +1,18 @@
+[Unit]
+Description=WGS Slicer Streamlit Application
+After=network.target
+
+[Service]
+Type=simple
+User=YOUR_USERNAME_HERE
+WorkingDirectory=/home/YOUR_USERNAME_HERE/WGSSlicer
+Environment="PATH=/usr/bin:/usr/local/bin:/home/YOUR_USERNAME_HERE/.local/bin"
+ExecStart=/usr/bin/streamlit run WGS_Slicer_v2.py --server.port=8501 --server.address=0.0.0.0
+Restart=always
+RestartSec=10
+StandardOutput=journal
+StandardError=journal
+
+[Install]
+WantedBy=multi-user.target
+
