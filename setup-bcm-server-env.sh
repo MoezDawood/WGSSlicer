@@ -95,8 +95,13 @@ if [ "$CONDA_AVAILABLE" = true ]; then
     source "$(conda info --base)/etc/profile.d/conda.sh"
     conda activate wgs-slicer
     
-    # Install pip packages
-    pip install -r requirements.txt
+    # Install pandas via conda first (pre-built binary, avoids compilation issues)
+    echo "Installing pandas via conda (pre-built binary)..."
+    conda install pandas -y
+    
+    # Install other packages via pip
+    echo "Installing other dependencies via pip..."
+    pip install streamlit paramiko
     
     echo -e "${GREEN}✓${NC} Dependencies installed in conda environment"
     
