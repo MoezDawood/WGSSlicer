@@ -39,7 +39,27 @@ if ! command -v python3 &> /dev/null; then
 fi
 
 PYTHON_VERSION=$(python3 --version | cut -d' ' -f2)
+PYTHON_MAJOR=$(echo $PYTHON_VERSION | cut -d'.' -f1)
+PYTHON_MINOR=$(echo $PYTHON_VERSION | cut -d'.' -f2)
+
 echo -e "${GREEN}✓${NC} Python version: $PYTHON_VERSION"
+
+# Check if Python version is 3.6 or older
+if [ "$PYTHON_MAJOR" -lt 3 ] || ([ "$PYTHON_MAJOR" -eq 3 ] && [ "$PYTHON_MINOR" -lt 7 ]); then
+    echo -e "${YELLOW}⚠${NC} Python 3.6 detected. Using Python 3.6 compatible requirements."
+    REQ_FILE="requirements-py36.txt"
+    if [ ! -f "$REQ_FILE" ]; then
+        echo -e "${YELLOW}⚠${NC} Creating Python 3.6 compatible requirements file..."
+        cat > "$REQ_FILE" << EOF
+# Requirements for Python 3.6 compatibility
+streamlit==0.84.2
+paramiko
+pandas
+EOF
+    fi
+else
+    REQ_FILE="requirements.txt"
+fi
 echo ""
 
 # Check Git
@@ -69,13 +89,14 @@ echo ""
 
 # Install Python dependencies
 echo "Installing Python dependencies..."
-pip3 install --user -r requirements.txt
+echo "Using requirements file: $REQ_FILE"
+pip3 install --user -r "$REQ_FILE"
 
 if [ $? -eq 0 ]; then
     echo -e "${GREEN}✓${NC} Dependencies installed"
 else
     echo -e "${YELLOW}⚠${NC} Some dependencies may have failed. Trying with sudo..."
-    sudo pip3 install -r requirements.txt
+    sudo pip3 install -r "$REQ_FILE"
 fi
 echo ""
 

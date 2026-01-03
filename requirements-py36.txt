@@ -1,0 +1,7 @@
+# Requirements for Python 3.6 compatibility
+# Use this if your server only has Python 3.6
+
+streamlit==0.84.2
+paramiko
+pandas
+
